@@ -18,7 +18,7 @@ export default function BoltField({ bolts }: { bolts: BoltSpec[] }) {
       {bolts.map((bolt, i) => (
         <LightningBolt
           key={i}
-          className="absolute"
+          className="drift absolute"
           style={{
             top: bolt.top,
             left: bolt.left,

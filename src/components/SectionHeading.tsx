@@ -14,7 +14,7 @@ export default function SectionHeading({
       <h2 className="text-sm font-medium uppercase tracking-[0.2em] text-accent">
         {title}
       </h2>
-      <span className="current-line ml-2 h-px flex-1" />
+      <span className="heading-line ml-2 flex-1" aria-hidden="true" />
     </div>
   );
 }

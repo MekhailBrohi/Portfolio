@@ -7,7 +7,6 @@ import LightningBolt from "@/components/LightningBolt";
 
 const navLinks = [
   { href: "/#about", label: "About" },
-  { href: "/#skills", label: "Skills" },
   { href: "/#journey", label: "Journey" },
   { href: "/#projects", label: "Projects" },
   { href: "/#contact", label: "Contact" },
@@ -18,7 +17,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/80 bg-background/80 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4 sm:px-10">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-10">
         <Link
           href="/"
           className="flex items-center gap-1.5 text-sm font-semibold tracking-tight text-foreground"

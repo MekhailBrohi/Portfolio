@@ -7,17 +7,19 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="relative mx-auto max-w-5xl scroll-mt-20 border-t border-border px-6 py-24 sm:px-10"
+      className="relative scroll-mt-20 border-t border-border bg-background/95"
     >
-      <Reveal>
-        <SectionHeading index="04" title="Projects" />
-      </Reveal>
-      <div className="mt-10 grid gap-8 sm:grid-cols-2">
-        {projects.map((project, i) => (
-          <Reveal key={project.slug} delay={i * 80}>
-            <ProjectCard project={project} />
-          </Reveal>
-        ))}
+      <div className="mx-auto max-w-7xl px-6 py-24 sm:px-10">
+        <Reveal>
+          <SectionHeading index="03" title="Projects" />
+        </Reveal>
+        <div className="mt-10 grid gap-8 sm:grid-cols-2">
+          {projects.map((project, i) => (
+            <Reveal key={project.slug} delay={i * 80}>
+              <ProjectCard project={project} />
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );

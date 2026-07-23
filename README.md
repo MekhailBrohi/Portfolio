@@ -24,7 +24,7 @@ Open [http://localhost:3000](http://localhost:3000).
   for every entry in `projects.ts`.
 - `public/images/<project-slug>/1.jpg`, `2.jpg`, `3.jpg` — real project photos, numbered
   in chronological build order (converted from the original `.HEIC` files in `Pictures/`).
-- `public/images/hero/circuit-board.jpg` — the hero background image.
+- `public/images/hero/1.png` — the hero background image.
 
 ## Adding more project photos later
 

@@ -1,13 +1,15 @@
 @import "tailwindcss";
 
+/* Palette pulled from the hero circuit board image:
+   bright white board, flat light-blue traces, soft slate shadows */
 :root {
-  --background: #fbfaf8;
-  --background-alt: #f2f0ea;
-  --foreground: #17171a;
-  --muted: #6b6a66;
-  --border: #e4e2dc;
-  --accent: #d4531f;
-  --accent-soft: #d4531f22;
+  --background: #f3f6fa;
+  --background-alt: #e8edf5;
+  --foreground: #16202b;
+  --muted: #5c6b7c;
+  --border: #d9e1eb;
+  --accent: #2f80ed;
+  --accent-soft: #2f80ed14;
 }
 
 @theme inline {
@@ -22,18 +24,6 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0b0b0c;
-    --background-alt: #131313;
-    --foreground: #f2f1ee;
-    --muted: #96948d;
-    --border: #232320;
-    --accent: #e8703a;
-    --accent-soft: #e8703a26;
-  }
-}
-
 * {
   scroll-behavior: smooth;
 }
@@ -43,38 +33,103 @@ body {
   color: var(--foreground);
 }
 
-/* Scroll reveal */
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ---------------------------------- */
+/* Scroll reveal: fade, rise, unblur */
+/* ---------------------------------- */
 .reveal {
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(24px);
+  filter: blur(6px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
+  filter: blur(0);
 }
 
-/* Lightning bolt flicker, like current arcing */
+/* ------------------------------------------ */
+/* Hero title: words rise out of a clip mask */
+/* ------------------------------------------ */
+.hero-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.hero-word > span {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: word-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--word-delay, 0ms);
+}
+
+@keyframes word-rise {
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* --------------------------------------------------- */
+/* Section heading line: flat orange pulse travelling */
+/* along a solid hairline. No gradients, just motion.  */
+/* --------------------------------------------------- */
+.heading-line {
+  position: relative;
+  height: 1px;
+  overflow: hidden;
+  background: var(--border);
+}
+
+.heading-line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -56px;
+  height: 100%;
+  width: 56px;
+  background: var(--accent);
+  animation: line-run 3.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@keyframes line-run {
+  0% {
+    left: -56px;
+  }
+  60%,
+  100% {
+    left: 100%;
+  }
+}
+
+/* -------------------------------------- */
+/* Bolt flicker: subtle, flat, no glow   */
+/* -------------------------------------- */
 @keyframes bolt-flicker {
   0%,
   100% {
-    opacity: 0.85;
-    filter: drop-shadow(0 0 4px var(--accent));
+    opacity: 1;
   }
   42% {
-    opacity: 0.25;
-    filter: drop-shadow(0 0 1px var(--accent));
+    opacity: 0.3;
   }
   46% {
     opacity: 1;
-    filter: drop-shadow(0 0 16px var(--accent));
   }
   50% {
-    opacity: 0.35;
+    opacity: 0.45;
   }
   54% {
-    opacity: 0.9;
+    opacity: 1;
   }
 }
 
@@ -82,63 +137,123 @@ body {
   animation: bolt-flicker 5s ease-in-out infinite;
 }
 
-/* Animated "current flowing" gradient line, used after section headings */
-.current-line {
-  background: linear-gradient(
-    90deg,
-    var(--border) 0%,
-    var(--accent) 50%,
-    var(--border) 100%
-  );
-  background-size: 200% 100%;
-  animation: current-flow 4s linear infinite;
-  opacity: 0.6;
+/* Decorative bolts that flicker AND slowly drift up and down */
+.drift {
+  animation:
+    bolt-flicker 5s ease-in-out infinite,
+    drift-y 7s ease-in-out infinite;
 }
 
-@keyframes current-flow {
+@keyframes drift-y {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -10px;
+  }
+}
+
+/* Gentle idle bob, used for the hero scroll cue */
+.float-y {
+  animation: float-y 2.4s ease-in-out infinite;
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+/* Hero rule: rises in with the title, then breathes wider forever */
+.hero-word > span.hero-rule {
+  animation:
+    word-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    rule-breathe 4s ease-in-out 1.8s infinite;
+  animation-delay: var(--word-delay, 0ms), 1.8s;
+}
+
+@keyframes rule-breathe {
+  0%,
+  100% {
+    width: 6rem;
+  }
+  50% {
+    width: 8.5rem;
+  }
+}
+
+/* --------------------------------------- */
+/* Skill chip: flat orange fill on hover  */
+/* --------------------------------------- */
+.chip {
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.chip:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ------------------------------------------- */
+/* Card lift: flat border swap + subtle rise  */
+/* ------------------------------------------- */
+.lift-card {
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.lift-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: 0 16px 40px -20px rgb(22 32 43 / 0.25);
+}
+
+/* ---------------------------------------------- */
+/* Timeline node: flat orange pulse ring         */
+/* ---------------------------------------------- */
+@keyframes node-pulse {
   0% {
-    background-position: 200% 0;
+    box-shadow: 0 0 0 0 var(--accent-soft);
+  }
+  70% {
+    box-shadow: 0 0 0 8px transparent;
   }
   100% {
-    background-position: -200% 0;
+    box-shadow: 0 0 0 0 transparent;
   }
 }
 
-/* Electric hover border for project cards */
-.spark-card {
-  position: relative;
-  isolation: isolate;
+.timeline-node {
+  animation: node-pulse 2.6s ease-out infinite;
 }
 
-.spark-card::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1px;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0%,
-    var(--accent) 8%,
-    transparent 18%
-  );
-  -webkit-mask: linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  animation: spin-current 2.4s linear infinite;
-  z-index: 1;
-  pointer-events: none;
-}
+/* Accessibility: kill motion for users who ask */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 
-.spark-card:hover::before {
-  opacity: 1;
-}
-
-@keyframes spin-current {
-  to {
-    transform: rotate(360deg);
+  .reveal,
+  .hero-word > span {
+    opacity: 1;
+    transform: none;
+    filter: none;
   }
 }

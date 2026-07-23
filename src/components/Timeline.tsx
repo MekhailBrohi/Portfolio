@@ -8,36 +8,33 @@ export default function Timeline() {
   return (
     <section
       id="journey"
-      className="relative mx-auto max-w-5xl scroll-mt-20 border-t border-border px-6 py-24 sm:px-10"
+      className="relative scroll-mt-20 border-t border-border bg-background-alt/95"
     >
+      <div className="mx-auto max-w-7xl px-6 py-24 sm:px-10">
       <Reveal>
-        <SectionHeading index="03" title="Journey" />
+        <SectionHeading index="02" title="Journey" />
       </Reveal>
       <Reveal delay={80}>
         <p className="mt-8 max-w-2xl text-lg leading-8 text-muted">
-          Four builds across four months — each one pushing a little further than
-          the last, from a first microcontroller project to a motor wound by hand.
+          Four builds across four months, each one pushing a little further than
+          the last: from a first microcontroller project to a motor wound by hand.
         </p>
       </Reveal>
 
       <div className="relative mt-12 pl-8">
-        {/* vertical current line */}
+        {/* vertical line: flat solid */}
         <span
-          className="absolute left-[10px] top-2 bottom-2 w-px"
-          style={{
-            background:
-              "linear-gradient(180deg, var(--border), var(--accent), var(--border))",
-          }}
+          className="absolute left-[10px] top-2 bottom-2 w-px bg-border"
           aria-hidden="true"
         />
 
         <ol className="space-y-10">
           {projects.map((project, i) => (
             <Reveal key={project.slug} delay={i * 90}>
-              <li className="relative">
+              <li className="group/item relative">
                 {/* node */}
-                <span className="absolute -left-8 top-1 flex h-5 w-5 items-center justify-center">
-                  <LightningBolt className="h-4 w-4" />
+                <span className="timeline-node absolute -left-8 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-background">
+                  <LightningBolt className="h-4 w-4 transition-transform duration-300 group-hover/item:scale-125" />
                 </span>
 
                 <Link
@@ -62,6 +59,7 @@ export default function Timeline() {
             </Reveal>
           ))}
         </ol>
+      </div>
       </div>
     </section>
   );

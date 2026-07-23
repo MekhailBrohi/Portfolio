@@ -9,6 +9,8 @@ export type Project = {
   parts: { name: string; note: string }[];
   notes: string[];
   imageCount: number;
+  /** Which photo to use as the card cover; defaults to the last one. */
+  cover?: number;
 };
 
 export const projects: Project[] = [
@@ -18,7 +20,7 @@ export const projects: Project[] = [
     date: "December 2025",
     tag: "Robotics",
     blurb:
-      "A PS4-controlled car on a hand-built cardboard chassis — my first real dive into the ESP32.",
+      "A PS4-controlled car on a hand-built cardboard chassis, and my first real dive into the ESP32.",
     purpose:
       "Designing and building an RC car using an ESP32 microcontroller. The goal was to learn how to use the ESP32 and build a project that could help build the foundational skills to code and implement the ESP32 into future projects.",
     technologies: [
@@ -248,6 +250,7 @@ export const projects: Project[] = [
     ],
     notes: [],
     imageCount: 3,
+    cover: 2,
   },
 ];
 
