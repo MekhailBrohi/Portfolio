@@ -7,7 +7,7 @@ This is my personal portfolio website. It showcases my hands-on projects, from a
 ## Contact
 
 - Email: mekhailbrohi08@gmail.com
-- GitHub: [github.com/Mekhail1](https://github.com/Mekhail1)
+- GitHub: [github.com/MekhailBrohi](https://github.com/MekhailBrohi)
 - LinkedIn: [linkedin.com/in/mekhail-brohi](https://www.linkedin.com/in/mekhail-brohi-489a673a1)
 
 Built with Next.js and Tailwind CSS.

@@ -11,6 +11,6 @@ export const siteConfig = {
   // links read from these values.
   socials: {
     linkedin: "https://www.linkedin.com/in/mekhail-brohi-489a673a1",
-    github: "https://github.com/Mekhail1",
+    github: "https://github.com/MekhailBrohi",
   },
 };
